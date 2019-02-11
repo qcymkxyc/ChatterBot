@@ -12,7 +12,7 @@ from tensorflow import keras
 
 
 def build_seq2seq(input_dim, encoder_units, decoder_units,
-                  hidden_units, batch_size):
+                  hidden_units, batch_size, voc_size,seq_length, embed_size = 300):
     """创建Seq2Seq模型
 
     :param input_dim: int
@@ -23,6 +23,10 @@ def build_seq2seq(input_dim, encoder_units, decoder_units,
         解码器
     :param hidden_units: List[int]
         解码器的隐藏层
+    :param embed_size: int
+    :
+    :param seq_length: int
+
     :return: Model
         Seq2Seq模型
     """
@@ -30,8 +34,9 @@ def build_seq2seq(input_dim, encoder_units, decoder_units,
 
     # 编码器
     encoder_input = keras.layers.Input(
-        shape=[None, input_dim], name="Encoder_Input")
-    encoder_last_output = encoder_input
+        shape=[seq_length], name="Encoder_Input")
+    encoder_embed = keras.layers.Embedding(voc_size, embed_size)(encoder_input)
+    encoder_last_output = encoder_embed
 
     encoder_state_list = list()
     for i, encoder_unit in enumerate(encoder_units):
@@ -74,7 +79,7 @@ def build_seq2seq(input_dim, encoder_units, decoder_units,
         )(hidden_net)
 
     # 输出
-    output = keras.layers.Dense(input_dim, activation="softmax")(hidden_net)
+    output = keras.layers.Dense(voc_size, activation="softmax")(hidden_net)
 
     model = keras.Model([encoder_input, decoder_input], output)
     return model
