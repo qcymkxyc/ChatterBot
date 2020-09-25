@@ -106,7 +106,7 @@ six==1.11.0
 sklearn==0.0
 SQLAlchemy==1.2.11
 tensorboard==1.12.2
-tensorflow-gpu==1.12.0
+tensorflow-gpu==1.15.4
 tensorflow-hub==0.2.0
 tensorflow-tensorboard==1.5.0
 termcolor==1.1.0
