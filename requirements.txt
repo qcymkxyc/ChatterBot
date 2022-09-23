@@ -81,7 +81,7 @@ parsel==1.2.0
 parso==0.1.0
 pickleshare==0.7.4
 prompt-toolkit==1.0.15
-protobuf==3.6.1
+protobuf==3.18.3
 pycodestyle==2.4.0
 pycparser==2.18
 PyDispatcher==2.0.5
